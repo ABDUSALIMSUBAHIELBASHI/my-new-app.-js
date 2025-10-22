@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abdu — Application Family / Portfolio</title>
+  <meta name="description" content="Responsive portfolio & family app — HTML, CSS, JS." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --accent: #111b1b;
+      --dark: #1f665d;
+      --muted: #999;
+      --card: hsl(24, 83%, 53%);
+      --glass: rgba(212, 201, 201, 0.65);
+      --radius: 14px;
+      --primary: #3498db;
+      --secondary: #2ecc71;
+      --light-bg: #f8f9fa;
+      --dark-bg: #0b0c0e;
+      --text-light: #f8f9fa;
+      --text-dark: #333;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      word-wrap: break-word;
+    }
+    
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #0b0c0e 0%, hsl(218, 85%, 5%) 100%);
+      color: var(--dark);
+      line-height: 1.45;
+      padding-bottom: 48px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 20px;
+    }
+    
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(74, 144, 226, 0.18);
+      flex-wrap: wrap;
+      position: sticky;
+      top: 10px;
+      z-index: 1000;
+    }
+    
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 700;
+      flex: 1;
+    }
+    
+    .logo-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: white;
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+    }
+    
+    nav ul {
+      display: flex;
+      gap: 14px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      color: #fdfdfd;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover {
+      color: var(--secondary);
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 26px;
+      margin-top: 18px;
+    }
+    
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(16, 24, 40, 0.06);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(16, 24, 40, 0.1);
+    }
+    
+    .intro h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      color: #000;
+    }
+    
+    .intro p {
+      color: #111;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 8px;
+    }
+    
+    .cta {
+      margin-top: 14px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    
+    .btn.ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    
+    .avatar {
+      position: relative;
+    }
+    
+    .avatar img {
+      width: 150px;
+      height: 150px;
+      border-radius: 18px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      border: 3px solid white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    
+    .tag {
+      background: var(--glass);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 0.86rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .tag:hover {
+      transform: scale(1.05);
+      background: var(--secondary);
+      color: white;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+    
+    .project {
+      padding: 14px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid rgba(74, 144, 226, 0.06);
+      transition: all 0.3s;
+    }
+    
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project h3 {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+    }
+    
+    .project p {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    
+    thead th {
+      background: #fafafa;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .contact-row .col {
+      flex: 1;
+      min-width: 260px;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: #ddd;
+      font-size: 0.9rem;
+    }
+    
+    .mobile-only {
+      display: none;
+    }
+    
+    .floating-action-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .floating-action-btn:hover {
+      transform: scale(1.1);
+      background: var(--secondary);
+    }
+    
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--accent);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 999;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .mobile-nav a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+    
+    .mobile-nav i {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    
+    .mobile-nav a.active {
+      color: var(--secondary);
+    }
+    
+    .swipe-indicator {
+      text-align: center;
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    
+    .swipe-indicator i {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-5px);
+      }
+      60% {
+        transform: translateY(-3px);
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr 320px;
+      }
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .profile img {
+        width: 130px;
+        height: 130px;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .mobile-only {
+        display: block;
+      }
+      .desktop-only {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .menu-toggle {
+        display: block;
+        margin-top: 8px;
+      }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: var(--accent);
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 8px;
+      }
+      nav ul.open {
+        display: flex;
+      }
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .intro h1 {
+        font-size: 1.3rem;
+      }
+      .avatar img {
+        width: 110px;
+        height: 110px;
+      }
+      .card {
+        padding: 16px;
+      }
+      .floating-action-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .intro p {
+        font-size: 0.85rem;
+      }
+      .tag {
+        font-size: 0.8rem;
+      }
+      .container {
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+    <script src="index2.js"></script>
+  <div class="container">
+    <header class="navbar">
+      <div class="brand">
+        <div class="logo-circle">AF</div>
+        <div>
+          <div style="font-size:0.95rem">Application Family</div>
+          <div style="font-size:0.78rem;opacity:0.9">Portfolio & family planner</div>
+        </div>
+      </div>
+      <nav class="desktop-only">
+        <div class="menu-toggle" id="menuToggle">☰</div>
+        <ul id="navList">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#languages">Languages</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#timetable">Timetable</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="card intro">
+          <h1>Hi — I'm Abdu. I build simple, useful web apps.</h1>
+          <p>This is a clean, responsive single-file
+          starter site that includes a family task timetable, 
+          a languages & skills section and a small projects 
+          gallery. Works well on iPhone SE, XR, iPhone 12,
+          Samsung Galaxy widths.</p>
+
+          <div class="swipe-indicator mobile-only">
+            <i class="fas fa-chevron-down"></i> Swipe to explore
+          </div>
+
+          <div class="cta">
+            <button class="btn" onclick="scrollToSection('projects')">
+              <i class="fas fa-project-diagram"></i> View Projects
+            </button>
+            <a class="btn ghost" href="#contact">
+              <i class="fas fa-envelope"></i> Contact
+            </a>
+          </div>
+
+          <h4 style="margin:16px 0 8px">Key skills</h4>
+          <div class="skills">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Python</span>
+            <span class="tag">PHP</span>
+            <span class="tag">C / C++</span>
+            <span class="tag">C#</span>
+            <span> <img src="1.png" width="50px" height="50px" alt=""></span>
+          </div>
+        </div>
+
+        <aside class="card profile">
+          <div class="avatar"><img src="b.jpeg" width="200px" height="200px" alt="Profile"></div>
+          <h3 style="color:#fff;">Abdu Salim</h3>
+          <div class="muted" style="background:olivedrab;color:#fff;padding:4px 10px;border-radius:10px;">
+            <i class="fas fa-code"></i> Full-stack enthusiast • Family apps
+          </div>
+          <div style="width:100%;margin-top:8px;text-align:left;color:#fff;">
+            <div class="row" style="justify-content:space-between">
+              <span><i class="fas fa-map-marker-alt"></i> Location:</span>
+              <span>Kigali, Rwanda</span>
+            </div>
+            <div class="row" style="justify-content:space-between;margin-top:6px">
+              <span><i class="fas fa-envelope"></i> Email:</span>
+              <span>abdu@example.com</span>
+            </div>
+          </div>
+          <div style="margin-top:12px;width:100%">
+            <a class="btn" href="#contact">
+              <i class="fas fa-paper-plane"></i> Send message
+            </a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="projects" class="grid-3">
+        <div class="card">
+          <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+          <div class="project">
+            <h3>Family Task Planner</h3>
+            <p>Add tasks for family members, set room, day and time.</p>
+            <div class="row" style="margin-top:8px">
+              <small class="muted">HTML • CSS • JS</small>
+              <div style="flex:1"></div>
+              <button class="btn" onclick="scrollToSection('timetable')">
+                <i class="fas fa-external-link-alt"></i> Open
+              </button>
+            </div>
+          </div>
+          <div class="project">
+            <h3>Portfolio Template</h3>
+            <p>A single-file responsive portfolio you can reuse.</p>
+            <div class="row" style="margin-top:8px">
+              <small class="muted">HTML • CSS</small>
+              <div style="flex:1"></div>
+              <button class="btn" onclick="window.scrollTo(0,0)">
+                <i class="fas fa-arrow-up"></i> Top
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2><i class="fas fa-language"></i> Languages & Proficiency</h2>
+          <table>
+            <thead><tr><th>Language</th><th>Level</th></tr></thead>
+            <tbody>
+              <tr><td>HTML</td><td>Expert</td></tr>
+              <tr><td>CSS</td><td>Expert</td></tr>
+              <tr><td>JavaScript</td><td>Advanced</td></tr>
+              <tr><td>Python</td><td>Intermediate</td></tr>
+              <tr><td>PHP</td><td>Intermediate</td></tr>
+              <tr><td>C / C++</td><td>Basic</td></tr>
+              <tr><td>C#</td><td>Basic</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2><i class="fas fa-link"></i> Quick Links</h2>
+          <p class="muted">GitHub, WhatsApp, Google & email.</p>
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+            <a class="tag" href="https://github.com/" target="_blank">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a class="tag" href="https://www.whatsapp.com/" target="_blank">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a class="tag" href="https://www.google.com/" target="_blank">
+              <i class="fab fa-google"></i> Google
+            </a>
+            <a class="tag" href="mailto:abdu@example.com">
+              <i class="fas fa-envelope"></i> Email :salimabdu759@gmail.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="timetable" class="card" style="margin-top:18px">
+        <h2><i class="fas fa-calendar-alt"></i> Family Timetable</h2>
+        <form id="taskForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
+          <input id="family" required placeholder="Family" />
+          <input id="member" required placeholder="Member" />
+          <select id="room">
+            <option>Kitchen</option><option>Bedroom</option><option>Living Room</option><option>Bathroom</option>
+          </select>
+          <input id="time" type="time" required />
+          <input id="task" placeholder="Task" required />
+          <select id="day">
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+          <button class="btn" type="submit">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </form>
+
+        <div style="margin-top:14px;overflow:auto">
+          <table id="timetableTable">
+            <thead><tr><th>Family</th><th>Member</th><th>Room</th><th>Task</th><th>Day</th><th>Time</th></tr></thead>
+            <tbody>
+              <tr><td>Smith</td><td>John</td><td>Kitchen</td><td>Cooking</td><td>Monday</td><td>18:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="contact" class="card" style="margin-top:18px">
+        <h2><i class="fas fa-id-card"></i> Contact & Login</h2>
+        <div class="contact-row" style="margin-top:12px">
+          <div class="col">
+            <form onsubmit="event.preventDefault();alert('Message sent (demo)')">
+              <label>Email</label>
+              <input required type="email" placeholder="you@example.com" />
+              <label style="margin-top:8px">Message</label>
+              <textarea placeholder="Hi Abdu..." rows="4"></textarea>
+              <div style="margin-top:10px">
+                <button class="btn" type="submit">
+                  <i class="fas fa-paper-plane"></i> Send
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col">
+            <h4>Login</h4>
+            <form onsubmit="event.preventDefault();alert('Login (demo)')">
+              <label>Email</label>
+              <input type="email" required placeholder="family@example.com" />
+              <label style="margin-top:8px">Password</label>
+              <input type="password" required placeholder="••••••" />
+              <div style="margin-top:10px">
+                <button class="btn ghost" type="submit">
+                  <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Application ELAF <code>12/8/2025</code> © Abdu</p>
+    </footer>
+  </div>
+
+  <div class="mobile-nav mobile-only">
+    <a href="#home" class="active">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#projects">
+      <i class="fas fa-project-diagram"></i>
+      <span>Projects</span>
+    </a>
+    <a href="#timetable">
+      <i class="fas fa-calendar-alt"></i>
+      <span>Timetable</span>
+    </a>
+    <a href="#contact">
+      
+      <i class="fas fa-envelope"></i>
+      <span>Contact</span>
+     
+    </a>
+  </div>
+
+  <div class="floating-action-btn mobile-only" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.getElementById('navList');
+    menuToggle?.addEventListener('click', () => navList.classList.toggle('open'));
+
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const taskForm = document.getElementById('taskForm');
+    const tableBody = document.querySelector('#timetableTable tbody');
+    taskForm?.addEventListener('submit', e => {
+      e.preventDefault();
+      const family = document.getElementById('family').value.trim();
+      const member = document.getElementById('member').value.trim();
+      const room = document.getElementById('room').value;
+      const task = document.getElementById('task').value.trim();
+      const day = document.getElementById('day').value;
+      const time = document.getElementById('time').value;
+      if (!family || !member || !task || !time) return alert('Please fill required fields.');
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${family}</td><td>${member}</td><td>${room}</td><td>${task}</td><td>${day}</td><td>${time}</td>`;
+      tableBody.appendChild(row);
+      taskForm.reset();
+      
+      alert('Task added successfully!');
+    });
+
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileNavLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    window.addEventListener('scroll', function() {
+      const fab = document.querySelector('.floating-action-btn');
+      if (window.scrollY > 300) {
+        fab.style.display = 'flex';
+      } else {
+        fab.style.display = 'none';
+      }
+    });
+
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', e => {
+      touchStartY = e.changedTouches[0].screenY;
+    }, false);
+    
+    document.addEventListener('touchend', e => {
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      
+      if (touchEndY < touchStartY - swipeThreshold) {
+        window.scrollBy(0, window.innerHeight * 0.8);
+      }
+      
+      if (touchEndY > touchStartY + swipeThreshold) {
+        window.scrollBy(0, -window.innerHeight * 0.8);
+      }
+    }
+  </script>
+</body>
+</html>
